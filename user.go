@@ -74,6 +74,12 @@ type User struct {
 	// The flags on a user's account.
 	// Only available when the request is authorized via a Bearer token.
 	Flags int `json:"flags"`
+
+	// The user's banner hash
+	Banner string `json:"banner"`
+
+	// The user's banner color encoded as an integer representation of hexadecimal color code
+	Accent int `json:"accent"`
 }
 
 // String returns a unique identifier of the form username#discriminator
@@ -101,6 +107,28 @@ func (u *User) AvatarURL(size string) string {
 	}
 
 	if size != "" {
+		return URL + "?size=" + size
+	}
+	return URL
+}
+
+// BannerURL returns a URL to the user's banner.
+// If the banner is nil, an empty strings is returned.
+//    size:    The size of the user's banner as a power of two
+//             if size is an empty string, no size parameter will
+//             be added to the URL.
+func (u *User) BannerURL(size string) string {
+	var URL string
+
+	if u.Banner == "" {
+		URL = ""
+	} else if strings.HasPrefix(u.Banner, "a_") {
+		URL = EndpointUserBannerAnimated(u.ID, u.Banner)
+	} else {
+		URL = EndpointUserBanner(u.ID, u.Banner)
+	}
+
+	if size != "" && URL != "" {
 		return URL + "?size=" + size
 	}
 	return URL
