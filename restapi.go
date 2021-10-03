@@ -1058,7 +1058,7 @@ func (s *Session) GuildRoleCreate(guildID string) (st *Role, err error) {
 // hoist     : Whether to display the role's users separately.
 // perm      : The permissions for the role.
 // mention   : Whether this role is mentionable
-func (s *Session) GuildRoleEdit(guildID, roleID, name string, color int, hoist bool, perm int64, mention bool) (st *Role, err error) {
+func (s *Session) GuildRoleEdit(guildID, roleID, name, icon, unicodeEmoji string, color int, hoist bool, perm int64, mention bool) (st *Role, err error) {
 
 	// Prevent sending a color int that is too big.
 	if color > 0xFFFFFF {
@@ -1067,12 +1067,14 @@ func (s *Session) GuildRoleEdit(guildID, roleID, name string, color int, hoist b
 	}
 
 	data := struct {
-		Name        string `json:"name"`               // The role's name (overwrites existing)
-		Color       int    `json:"color"`              // The color the role should have (as a decimal, not hex)
-		Hoist       bool   `json:"hoist"`              // Whether to display the role's users separately
-		Permissions int64  `json:"permissions,string"` // The overall permissions number of the role (overwrites existing)
-		Mentionable bool   `json:"mentionable"`        // Whether this role is mentionable
-	}{name, color, hoist, perm, mention}
+		Name         string `json:"name"`               // The role's name (overwrites existing)
+		Color        int    `json:"color"`              // The color the role should have (as a decimal, not hex)
+		Hoist        bool   `json:"hoist"`              // Whether to display the role's users separately
+		Permissions  int64  `json:"permissions,string"` // The overall permissions number of the role (overwrites existing)
+		Mentionable  bool   `json:"mentionable"`        // Whether this role is mentionable
+		Icon         string `json:"icon"`               // The role's icon image
+		UnicodeEmoji string `json:"unicode_emoji"`      // The role's unicode emoji
+	}{name, color, hoist, perm, mention, icon, unicodeEmoji}
 
 	body, err := s.RequestWithBucketID("PATCH", EndpointGuildRole(guildID, roleID), data, EndpointGuildRole(guildID, ""))
 	if err != nil {
