@@ -39,6 +39,7 @@ var (
 	EndpointCDNSplashes     = EndpointCDN + "splashes/"
 	EndpointCDNChannelIcons = EndpointCDN + "channel-icons/"
 	EndpointCDNBanners      = EndpointCDN + "banners/"
+	EndpointCDNRoleIcons    = EndpointCDN + "role-icons/"
 
 	EndpointAuth           = EndpointAPI + "auth/"
 	EndpointLogin          = EndpointAuth + "login"
@@ -90,6 +91,7 @@ var (
 	EndpointGuildIntegrationSync = func(gID, iID string) string { return EndpointGuilds + gID + "/integrations/" + iID + "/sync" }
 	EndpointGuildRoles           = func(gID string) string { return EndpointGuilds + gID + "/roles" }
 	EndpointGuildRole            = func(gID, rID string) string { return EndpointGuilds + gID + "/roles/" + rID }
+	EndpointGuildRoleIcon        = func(rID, hash string) string { return EndpointCDNRoleIcons + rID + "/" + hash + ".png" }
 	EndpointGuildInvites         = func(gID string) string { return EndpointGuilds + gID + "/invites" }
 	EndpointGuildWidget          = func(gID string) string { return EndpointGuilds + gID + "/widget" }
 	EndpointGuildEmbed           = EndpointGuildWidget
