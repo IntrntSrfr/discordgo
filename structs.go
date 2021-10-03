@@ -800,6 +800,29 @@ type Member struct {
 
 	// Total permissions of the member in the channel, including overrides, returned when in the interaction object.
 	Permissions int64 `json:"permissions,string"`
+
+	// The hash of the member's guild avatar.
+	Avatar string `json:"avatar"`
+}
+
+// AvatarURL returns a URL to the member's avatar.
+//    size:    The size of the user's avatar as a power of two
+//             if size is an empty string, no size parameter will
+//             be added to the URL.
+func (m *Member) AvatarURL(size string) string {
+	var URL string
+	if m.Avatar == "" {
+		URL = ""
+	} else if strings.HasPrefix(m.Avatar, "a_") {
+		URL = EndpointGuildMemberAvatarAnimated(m.GuildID, m.User.ID, m.Avatar)
+	} else {
+		URL = EndpointGuildMemberAvatar(m.GuildID, m.User.ID, m.Avatar)
+	}
+
+	if size != "" && URL != "" {
+		return URL + "?size=" + size
+	}
+	return URL
 }
 
 // Mention creates a member mention
