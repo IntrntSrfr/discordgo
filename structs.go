@@ -1388,6 +1388,9 @@ type Role struct {
 	// The hex color of this role.
 	Color int `json:"color"`
 
+	// The enhanced role colors of this role.
+	Colors RoleColors `json:"colors"`
+
 	// The position of this role in the guild's role hierarchy.
 	Position int `json:"position"`
 
@@ -1418,6 +1421,18 @@ const (
 	RoleFlagInPrompt RoleFlags = 1 << 0
 )
 
+type RoleColors struct {
+	// The primary color of the role, and also the left color of the gradient
+	// if the role is a gradient role.
+	PrimaryColor int `json:"primary_color"`
+
+	// The secondary right color of the gradient.
+	SecondaryColor *int `json:"secondary_color"`
+
+	// Indicates holographic role.
+	TertiaryColor *int `json:"tertiary_color"`
+}
+
 // Mention returns a string which mentions the role
 func (r *Role) Mention() string {
 	return fmt.Sprintf("<@&%s>", r.ID)
@@ -1446,6 +1461,9 @@ type RoleParams struct {
 	Name string `json:"name,omitempty"`
 	// The color the role should have (as a decimal, not hex)
 	Color *int `json:"color,omitempty"`
+	// The enhanced colors that the role should have.
+	// NOTE: can only be set if the guild has the ENHANCED_ROLE_COLORS feature.
+	Colors *RoleColors `json:"colors,omitempty"`
 	// Whether to display the role's users separately
 	Hoist *bool `json:"hoist,omitempty"`
 	// The overall permissions number of the role
