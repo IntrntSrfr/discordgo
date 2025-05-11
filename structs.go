@@ -1421,6 +1421,7 @@ const (
 	RoleFlagInPrompt RoleFlags = 1 << 0
 )
 
+// RoleColors represent the enhanced colors of a role.
 type RoleColors struct {
 	// The primary color of the role, and also the left color of the gradient
 	// if the role is a gradient role.
