@@ -1325,6 +1325,7 @@ const (
 	GuildFeatureBanner                        GuildFeature = "BANNER"
 	GuildFeatureCommunity                     GuildFeature = "COMMUNITY"
 	GuildFeatureDiscoverable                  GuildFeature = "DISCOVERABLE"
+	GuildFeatureEnhancedRoleColors            GuildFeature = "ENHANCED_ROLE_COLORS"
 	GuildFeatureFeaturable                    GuildFeature = "FEATURABLE"
 	GuildFeatureInviteSplash                  GuildFeature = "INVITE_SPLASH"
 	GuildFeatureMemberVerificationGateEnabled GuildFeature = "MEMBER_VERIFICATION_GATE_ENABLED"
